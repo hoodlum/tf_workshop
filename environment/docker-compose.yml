@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  tensorflow_notebook:
+    #Tensorflow (official) Image
+    image: gcr.io/tensorflow/tensorflow
+    environment:
+      TF_LOG_PATH: /tmp/tflog
+    volumes:
+      - tf-log-volume:/tmp/tflog
+      - c:/Work.Community/docker-tensorworkshop/notebooks:/notebooks
+    ports:
+      - "8888:8888"
+  tensorboard:
+    image: gcr.io/tensorflow/tensorflow
+    environment:
+      TF_LOG_PATH: /tmp/tflog
+    volumes:
+      - tf-log-volume:/tmp/tflog
+    entrypoint: ["tensorboard", "--logdir", "/tmp/tflog"]
+    ports:
+      - "6006:6006"
+
+volumes:
+  tf-log-volume:
